@@ -2,14 +2,15 @@ import { createSlice, createSelector } from "@reduxjs/toolkit";
 import { fetchContacts, addContact, deleteContact } from "./contactsOps";
 import { selectNameFilter } from "./filtersSlice"
 
-export const handlePending = (state) => {
-  state.loading = true;
-};
+const handlePending = (state) => {
+  state.loading = true
+  state.error = false
+}
 
-export const handleRejected = (state, action) => {
-  state.loading = false;
-  state.error = action.payload;
-};
+const handleRejected = (state, action) => {
+  state.loading = false
+  state.error = action.payload
+}
 
 const contactsSlice = createSlice({
     name: "contacts",
@@ -23,21 +24,21 @@ const contactsSlice = createSlice({
       .addCase(fetchContacts.fulfilled, (state, action) => {
       state.items = action.payload
       state.loading = false
-      state.error = null
-      })
+      state.error = null         })
       .addCase(fetchContacts.rejected, handleRejected)
       .addCase(fetchContacts.pending, handlePending)
+
       .addCase(addContact.fulfilled, (state, action) => {
       state.items.push(action.payload)
       state.loading = false
-      state.error = null
-      })
+      state.error = null         })
       .addCase(addContact.rejected, handleRejected)
       .addCase(addContact.pending, handlePending)
+
       .addCase(deleteContact.fulfilled, (state, action) => {
-       state.items = state.items.filter(item => item.id !== action.payload.id)
-       state.loading = false
-      })
+      state.items = state.items.filter(item => item.id !== action.payload.id)
+      state.loading = false
+      state.error = null         })
       .addCase(deleteContact.rejected, handleRejected)
       .addCase(deleteContact.pending, handlePending)
     } 

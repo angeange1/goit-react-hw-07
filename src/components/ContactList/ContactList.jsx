@@ -1,6 +1,5 @@
 import Contact from "../Contact/Contact"
 import { useSelector } from "react-redux"
-
 import { selectFilteredContacts } from "../../redux/contactsSlice"
 
 const ContactList = () => {
